@@ -51,14 +51,29 @@
   margin: 25px 0;
   font-size: 0.9em;
   font-family: sans-serif;
-  width: 100vw;
+  width: 100%;
   max-width: 1000px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  table-layout: fixed;
+  border-radius: 8px;
+  overflow: hidden;
+  background-color: white;
 }
 
 .styledTable th,
 .styledTable td {
   padding: 12px 15px;
+  vertical-align: top;
+}
+
+.styledTable td {
+  word-wrap: break-word;
+  max-width: 0;
+  font-weight: 500;
+}
+
+.styledTable tbody tr:last-child td {
+  border-bottom: none;
 }
 
 .styledTable tbody tr {
@@ -67,6 +82,80 @@
 
 .styledTable tbody tr:nth-of-type(even) {
   background-color: #f3f3f3;
+}
+
+.styledTable tbody tr:nth-of-type(odd) {
+  background-color: #ffffff;
+}
+
+.styledTable tbody tr:hover {
+  background-color: #e8f4fd;
+  transition: background-color 0.2s ease;
+}
+
+.styledTable th {
+  background-color: #4a5568;
+  color: white;
+  font-weight: bold;
+}
+
+.styledTable td {
+  color: #333;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+/* Ensure all text in the app is visible */
+.governorList h2,
+.governorList h3,
+.governorList p,
+.governorList label,
+.governorList li {
+  color: #333 !important;
+}
+
+/* Ensure all text in governorList has proper contrast */
+.governorList {
+  color: #333 !important;
+}
+
+.governorList * {
+  color: inherit !important;
+}
+
+.governorList input,
+.governorList textarea,
+.governorList select {
+  color: #333 !important;
+  background-color: white !important;
+  border: 1px solid #d1d5db !important;
+}
+
+.governorList input:focus,
+.governorList textarea:focus,
+.governorList select:focus {
+  outline: 2px solid #3b82f6 !important;
+  outline-offset: 2px !important;
+}
+
+.governorList button {
+  color: white !important;
+  font-weight: bold !important;
+}
+
+/* Ensure error/no-data messages are always visible */
+.no-data-message {
+  background-color: #f8f9fa !important;
+  border: 1px solid #e9ecef !important;
+  border-radius: 8px !important;
+  padding: 20px !important;
+  margin: 15px 0 !important;
+  text-align: center !important;
+}
+
+.no-data-message p {
+  color: #495057 !important;
+  margin: 8px 0 !important;
+  font-size: 14px !important;
 }
 
 th:nth-child(1),

@@ -1,139 +1,244 @@
 import { useQuery } from "@tanstack/react-query";
 import { useGraphQLCodegen } from "../../autogen/useGraphQLCodegen";
-var AccountActivitySortField = /* @__PURE__ */ ((AccountActivitySortField2) => {
-  AccountActivitySortField2["BlockTimestamp"] = "BLOCK_TIMESTAMP";
-  return AccountActivitySortField2;
-})(AccountActivitySortField || {});
-var DelegateSortField = /* @__PURE__ */ ((DelegateSortField2) => {
-  DelegateSortField2["Created"] = "CREATED";
-  DelegateSortField2["Delegations"] = "DELEGATIONS";
-  DelegateSortField2["HasDelegateStatement"] = "HAS_DELEGATE_STATEMENT";
-  DelegateSortField2["HasEns"] = "HAS_ENS";
-  DelegateSortField2["ProposalsCreated"] = "PROPOSALS_CREATED";
-  DelegateSortField2["TokensOwned"] = "TOKENS_OWNED";
-  DelegateSortField2["Updated"] = "UPDATED";
-  DelegateSortField2["VotingWeight"] = "VOTING_WEIGHT";
-  return DelegateSortField2;
-})(DelegateSortField || {});
+var AccountType = /* @__PURE__ */ ((AccountType2) => {
+  AccountType2["Eoa"] = "EOA";
+  AccountType2["Safe"] = "SAFE";
+  return AccountType2;
+})(AccountType || {});
+var AssignmentDirection = /* @__PURE__ */ ((AssignmentDirection2) => {
+  AssignmentDirection2["In"] = "IN";
+  AssignmentDirection2["Out"] = "OUT";
+  return AssignmentDirection2;
+})(AssignmentDirection || {});
+var BlockExplorerType = /* @__PURE__ */ ((BlockExplorerType2) => {
+  BlockExplorerType2["Blockscout"] = "blockscout";
+  BlockExplorerType2["Etherscan"] = "etherscan";
+  BlockExplorerType2["Other"] = "other";
+  return BlockExplorerType2;
+})(BlockExplorerType || {});
+var CandidateSort = /* @__PURE__ */ ((CandidateSort2) => {
+  CandidateSort2["Alphabetical"] = "ALPHABETICAL";
+  CandidateSort2["Random"] = "RANDOM";
+  CandidateSort2["Votes"] = "VOTES";
+  return CandidateSort2;
+})(CandidateSort || {});
+var CloudEventType = /* @__PURE__ */ ((CloudEventType2) => {
+  CloudEventType2["DelegationIsSeekingDelegationsToggle"] = "delegationIsSeekingDelegationsToggle";
+  return CloudEventType2;
+})(CloudEventType || {});
+var ContenderFilter = /* @__PURE__ */ ((ContenderFilter2) => {
+  ContenderFilter2["All"] = "ALL";
+  ContenderFilter2["Qualified"] = "QUALIFIED";
+  ContenderFilter2["SeekingVotes"] = "SEEKING_VOTES";
+  return ContenderFilter2;
+})(ContenderFilter || {});
+var ContractType = /* @__PURE__ */ ((ContractType2) => {
+  ContractType2["Fixedliquidstakingtoken"] = "fixedliquidstakingtoken";
+  ContractType2["Liquidstakingtoken"] = "liquidstakingtoken";
+  ContractType2["Other"] = "other";
+  ContractType2["Staker"] = "staker";
+  ContractType2["Unistaker"] = "unistaker";
+  return ContractType2;
+})(ContractType || {});
+var ContributorsSortBy = /* @__PURE__ */ ((ContributorsSortBy2) => {
+  ContributorsSortBy2["Id"] = "id";
+  return ContributorsSortBy2;
+})(ContributorsSortBy || {});
+var DelegateChangedHistorySortBy = /* @__PURE__ */ ((DelegateChangedHistorySortBy2) => {
+  DelegateChangedHistorySortBy2["BlockNumber"] = "blockNumber";
+  DelegateChangedHistorySortBy2["Votes"] = "votes";
+  return DelegateChangedHistorySortBy2;
+})(DelegateChangedHistorySortBy || {});
 var DelegateStatementSource = /* @__PURE__ */ ((DelegateStatementSource2) => {
-  DelegateStatementSource2["Script"] = "SCRIPT";
-  DelegateStatementSource2["User"] = "USER";
+  DelegateStatementSource2["Script"] = "script";
+  DelegateStatementSource2["User"] = "user";
   return DelegateStatementSource2;
 })(DelegateStatementSource || {});
-var DelegationWeightChangeSortField = /* @__PURE__ */ ((DelegationWeightChangeSortField2) => {
-  DelegationWeightChangeSortField2["Created"] = "CREATED";
-  DelegationWeightChangeSortField2["NetChange"] = "NET_CHANGE";
-  DelegationWeightChangeSortField2["NewBalance"] = "NEW_BALANCE";
-  DelegationWeightChangeSortField2["OldBalance"] = "OLD_BALANCE";
-  return DelegationWeightChangeSortField2;
-})(DelegationWeightChangeSortField || {});
-var FeatureOrderField = /* @__PURE__ */ ((FeatureOrderField2) => {
-  FeatureOrderField2["Name"] = "NAME";
-  return FeatureOrderField2;
-})(FeatureOrderField || {});
+var DelegateVotesChangedHistorySortBy = /* @__PURE__ */ ((DelegateVotesChangedHistorySortBy2) => {
+  DelegateVotesChangedHistorySortBy2["BlockNumber"] = "blockNumber";
+  DelegateVotesChangedHistorySortBy2["NetChange"] = "netChange";
+  return DelegateVotesChangedHistorySortBy2;
+})(DelegateVotesChangedHistorySortBy || {});
+var DelegatesSortBy = /* @__PURE__ */ ((DelegatesSortBy2) => {
+  DelegatesSortBy2["Delegators"] = "delegators";
+  DelegatesSortBy2["Id"] = "id";
+  DelegatesSortBy2["IsPrioritized"] = "isPrioritized";
+  DelegatesSortBy2["Votes"] = "votes";
+  return DelegatesSortBy2;
+})(DelegatesSortBy || {});
+var DelegationsSortBy = /* @__PURE__ */ ((DelegationsSortBy2) => {
+  DelegationsSortBy2["Id"] = "id";
+  DelegationsSortBy2["Votes"] = "votes";
+  return DelegationsSortBy2;
+})(DelegationsSortBy || {});
+var EarningPowerTrackerEventType = /* @__PURE__ */ ((EarningPowerTrackerEventType2) => {
+  EarningPowerTrackerEventType2["ClaimerAltered"] = "claimer_altered";
+  EarningPowerTrackerEventType2["DelegateeAltered"] = "delegatee_altered";
+  EarningPowerTrackerEventType2["Deposited"] = "deposited";
+  EarningPowerTrackerEventType2["RewardClaimed"] = "reward_claimed";
+  EarningPowerTrackerEventType2["Withdrawn"] = "withdrawn";
+  return EarningPowerTrackerEventType2;
+})(EarningPowerTrackerEventType || {});
+var ElectionStatus = /* @__PURE__ */ ((ElectionStatus2) => {
+  ElectionStatus2["Complete"] = "COMPLETE";
+  ElectionStatus2["Grace"] = "GRACE";
+  ElectionStatus2["Member"] = "MEMBER";
+  ElectionStatus2["Nomination"] = "NOMINATION";
+  return ElectionStatus2;
+})(ElectionStatus || {});
+var EligibilityStatus = /* @__PURE__ */ ((EligibilityStatus2) => {
+  EligibilityStatus2["Claimed"] = "CLAIMED";
+  EligibilityStatus2["Eligible"] = "ELIGIBLE";
+  EligibilityStatus2["Noteligible"] = "NOTELIGIBLE";
+  return EligibilityStatus2;
+})(EligibilityStatus || {});
+var ExecutableCallType = /* @__PURE__ */ ((ExecutableCallType2) => {
+  ExecutableCallType2["Custom"] = "custom";
+  ExecutableCallType2["Empty"] = "empty";
+  ExecutableCallType2["Erc20transfer"] = "erc20transfer";
+  ExecutableCallType2["Erc20transferarbitrum"] = "erc20transferarbitrum";
+  ExecutableCallType2["Nativetransfer"] = "nativetransfer";
+  ExecutableCallType2["Orcamanagepod"] = "orcamanagepod";
+  ExecutableCallType2["Other"] = "other";
+  ExecutableCallType2["Reward"] = "reward";
+  ExecutableCallType2["Swap"] = "swap";
+  return ExecutableCallType2;
+})(ExecutableCallType || {});
 var GnosisStatusChangeType = /* @__PURE__ */ ((GnosisStatusChangeType2) => {
   GnosisStatusChangeType2["Executed"] = "EXECUTED";
   GnosisStatusChangeType2["Submitted"] = "SUBMITTED";
   return GnosisStatusChangeType2;
 })(GnosisStatusChangeType || {});
-var GovernanceSortField = /* @__PURE__ */ ((GovernanceSortField2) => {
-  GovernanceSortField2["ActiveProposals"] = "ACTIVE_PROPOSALS";
-  GovernanceSortField2["TotalProposals"] = "TOTAL_PROPOSALS";
-  return GovernanceSortField2;
-})(GovernanceSortField || {});
-var GovernanceType = /* @__PURE__ */ ((GovernanceType2) => {
-  GovernanceType2["Aave"] = "AAVE";
-  GovernanceType2["Governoralpha"] = "GOVERNORALPHA";
-  GovernanceType2["Governorbravo"] = "GOVERNORBRAVO";
-  GovernanceType2["Openzeppelingovernor"] = "OPENZEPPELINGOVERNOR";
-  return GovernanceType2;
-})(GovernanceType || {});
-var GovernorSortField = /* @__PURE__ */ ((GovernorSortField2) => {
-  GovernorSortField2["ActiveProposals"] = "ACTIVE_PROPOSALS";
-  GovernorSortField2["TotalProposals"] = "TOTAL_PROPOSALS";
-  return GovernorSortField2;
-})(GovernorSortField || {});
+var GovernorKind = /* @__PURE__ */ ((GovernorKind2) => {
+  GovernorKind2["Hub"] = "hub";
+  GovernorKind2["Multiother"] = "multiother";
+  GovernorKind2["Multiprimary"] = "multiprimary";
+  GovernorKind2["Multisecondary"] = "multisecondary";
+  GovernorKind2["Single"] = "single";
+  GovernorKind2["Spoke"] = "spoke";
+  return GovernorKind2;
+})(GovernorKind || {});
 var GovernorType = /* @__PURE__ */ ((GovernorType2) => {
-  GovernorType2["Aave"] = "AAVE";
-  GovernorType2["Governoralpha"] = "GOVERNORALPHA";
-  GovernorType2["Governorbravo"] = "GOVERNORBRAVO";
-  GovernorType2["Openzeppelingovernor"] = "OPENZEPPELINGOVERNOR";
+  GovernorType2["Aave"] = "aave";
+  GovernorType2["Governoralpha"] = "governoralpha";
+  GovernorType2["Governorbravo"] = "governorbravo";
+  GovernorType2["Hub"] = "hub";
+  GovernorType2["Memberelection"] = "memberelection";
+  GovernorType2["Nomineeelection"] = "nomineeelection";
+  GovernorType2["Nounsfork"] = "nounsfork";
+  GovernorType2["Openzeppelingovernor"] = "openzeppelingovernor";
+  GovernorType2["Spoke"] = "spoke";
   return GovernorType2;
 })(GovernorType || {});
-var MemberSortField = /* @__PURE__ */ ((MemberSortField2) => {
-  MemberSortField2["PollsVoteCount"] = "POLLS_VOTE_COUNT";
-  return MemberSortField2;
-})(MemberSortField || {});
-var MultiGovernanceSupport = /* @__PURE__ */ ((MultiGovernanceSupport2) => {
-  MultiGovernanceSupport2["MultiGovPrimary"] = "MULTI_GOV_PRIMARY";
-  MultiGovernanceSupport2["MultiGovSecondary"] = "MULTI_GOV_SECONDARY";
-  MultiGovernanceSupport2["SingleGov"] = "SINGLE_GOV";
-  return MultiGovernanceSupport2;
-})(MultiGovernanceSupport || {});
-var OrderDirection = /* @__PURE__ */ ((OrderDirection2) => {
-  OrderDirection2["Asc"] = "ASC";
-  OrderDirection2["Desc"] = "DESC";
-  return OrderDirection2;
-})(OrderDirection || {});
-var OrgUxVersion = /* @__PURE__ */ ((OrgUxVersion2) => {
-  OrgUxVersion2["Governor"] = "governor";
-  OrgUxVersion2["Tokenless"] = "tokenless";
-  return OrgUxVersion2;
-})(OrgUxVersion || {});
+var GovernorsSortBy = /* @__PURE__ */ ((GovernorsSortBy2) => {
+  GovernorsSortBy2["Id"] = "id";
+  return GovernorsSortBy2;
+})(GovernorsSortBy || {});
+var MetaTransactionAction = /* @__PURE__ */ ((MetaTransactionAction2) => {
+  MetaTransactionAction2["CastVote"] = "CAST_VOTE";
+  MetaTransactionAction2["Delegate"] = "DELEGATE";
+  return MetaTransactionAction2;
+})(MetaTransactionAction || {});
+var MetaTransactionSortField = /* @__PURE__ */ ((MetaTransactionSortField2) => {
+  MetaTransactionSortField2["Created"] = "CREATED";
+  return MetaTransactionSortField2;
+})(MetaTransactionSortField || {});
+var NewVoteType = /* @__PURE__ */ ((NewVoteType2) => {
+  NewVoteType2["Onchain"] = "onchain";
+  NewVoteType2["Veto"] = "veto";
+  return NewVoteType2;
+})(NewVoteType || {});
+var OrganizationMembersSortBy = /* @__PURE__ */ ((OrganizationMembersSortBy2) => {
+  OrganizationMembersSortBy2["Id"] = "id";
+  return OrganizationMembersSortBy2;
+})(OrganizationMembersSortBy || {});
 var OrganizationRole = /* @__PURE__ */ ((OrganizationRole2) => {
   OrganizationRole2["Admin"] = "ADMIN";
   OrganizationRole2["Member"] = "MEMBER";
   OrganizationRole2["Superadmin"] = "SUPERADMIN";
   return OrganizationRole2;
 })(OrganizationRole || {});
-var OrganizationSortField = /* @__PURE__ */ ((OrganizationSortField2) => {
-  OrganizationSortField2["Id"] = "ID";
-  OrganizationSortField2["Name"] = "NAME";
-  return OrganizationSortField2;
-})(OrganizationSortField || {});
-var PollStatus = /* @__PURE__ */ ((PollStatus2) => {
-  PollStatus2["Active"] = "ACTIVE";
-  PollStatus2["Draft"] = "DRAFT";
-  PollStatus2["Ended"] = "ENDED";
-  return PollStatus2;
-})(PollStatus || {});
+var OrganizationsSortBy = /* @__PURE__ */ ((OrganizationsSortBy2) => {
+  OrganizationsSortBy2["Explore"] = "explore";
+  OrganizationsSortBy2["Id"] = "id";
+  OrganizationsSortBy2["Name"] = "name";
+  OrganizationsSortBy2["Popular"] = "popular";
+  return OrganizationsSortBy2;
+})(OrganizationsSortBy || {});
 var ProposalActionType = /* @__PURE__ */ ((ProposalActionType2) => {
-  ProposalActionType2["Cancel"] = "CANCEL";
-  ProposalActionType2["Execute"] = "EXECUTE";
-  ProposalActionType2["Queue"] = "QUEUE";
+  ProposalActionType2["Cancel"] = "cancel";
+  ProposalActionType2["Execute"] = "execute";
+  ProposalActionType2["Queue"] = "queue";
   return ProposalActionType2;
 })(ProposalActionType || {});
-var ProposalSortField = /* @__PURE__ */ ((ProposalSortField2) => {
-  ProposalSortField2["CreatedAt"] = "CREATED_AT";
-  ProposalSortField2["EndBlock"] = "END_BLOCK";
-  ProposalSortField2["ExecutionEta"] = "EXECUTION_ETA";
-  ProposalSortField2["StartBlock"] = "START_BLOCK";
-  return ProposalSortField2;
-})(ProposalSortField || {});
-var ProposalStatusType = /* @__PURE__ */ ((ProposalStatusType2) => {
-  ProposalStatusType2["Active"] = "ACTIVE";
-  ProposalStatusType2["Canceled"] = "CANCELED";
-  ProposalStatusType2["Defeated"] = "DEFEATED";
-  ProposalStatusType2["Executed"] = "EXECUTED";
-  ProposalStatusType2["Expired"] = "EXPIRED";
-  ProposalStatusType2["Pending"] = "PENDING";
-  ProposalStatusType2["Queued"] = "QUEUED";
-  ProposalStatusType2["Succeeded"] = "SUCCEEDED";
-  return ProposalStatusType2;
-})(ProposalStatusType || {});
-var Recipe = /* @__PURE__ */ ((Recipe2) => {
-  Recipe2["Custom"] = "CUSTOM";
-  Recipe2["Empty"] = "EMPTY";
-  Recipe2["OrcaManagePod"] = "ORCA_MANAGE_POD";
-  Recipe2["TransferErc_20"] = "TRANSFER_ERC_20";
-  Recipe2["TransferNativeAsset"] = "TRANSFER_NATIVE_ASSET";
-  return Recipe2;
-})(Recipe || {});
+var ProposalEventType = /* @__PURE__ */ ((ProposalEventType2) => {
+  ProposalEventType2["Activated"] = "activated";
+  ProposalEventType2["Callexecuted"] = "callexecuted";
+  ProposalEventType2["Canceled"] = "canceled";
+  ProposalEventType2["Created"] = "created";
+  ProposalEventType2["Crosschainexecuted"] = "crosschainexecuted";
+  ProposalEventType2["Defeated"] = "defeated";
+  ProposalEventType2["Drafted"] = "drafted";
+  ProposalEventType2["Executed"] = "executed";
+  ProposalEventType2["Expired"] = "expired";
+  ProposalEventType2["Extended"] = "extended";
+  ProposalEventType2["Pendingexecution"] = "pendingexecution";
+  ProposalEventType2["Queued"] = "queued";
+  ProposalEventType2["Succeeded"] = "succeeded";
+  return ProposalEventType2;
+})(ProposalEventType || {});
+var ProposalParticipationType = /* @__PURE__ */ ((ProposalParticipationType2) => {
+  ProposalParticipationType2["Notdelegate"] = "notdelegate";
+  ProposalParticipationType2["Notvoted"] = "notvoted";
+  ProposalParticipationType2["Unknown"] = "unknown";
+  ProposalParticipationType2["Votedabstain"] = "votedabstain";
+  ProposalParticipationType2["Votedagainst"] = "votedagainst";
+  ProposalParticipationType2["Votedfor"] = "votedfor";
+  return ProposalParticipationType2;
+})(ProposalParticipationType || {});
+var ProposalStatus = /* @__PURE__ */ ((ProposalStatus2) => {
+  ProposalStatus2["Active"] = "active";
+  ProposalStatus2["Archived"] = "archived";
+  ProposalStatus2["Callexecuted"] = "callexecuted";
+  ProposalStatus2["Canceled"] = "canceled";
+  ProposalStatus2["Crosschainexecuted"] = "crosschainexecuted";
+  ProposalStatus2["Defeated"] = "defeated";
+  ProposalStatus2["Draft"] = "draft";
+  ProposalStatus2["Executed"] = "executed";
+  ProposalStatus2["Expired"] = "expired";
+  ProposalStatus2["Extended"] = "extended";
+  ProposalStatus2["Pending"] = "pending";
+  ProposalStatus2["Pendingexecution"] = "pendingexecution";
+  ProposalStatus2["Queued"] = "queued";
+  ProposalStatus2["Submitted"] = "submitted";
+  ProposalStatus2["Succeeded"] = "succeeded";
+  ProposalStatus2["Vetoed"] = "vetoed";
+  ProposalStatus2["Vetoquorummet"] = "vetoquorummet";
+  ProposalStatus2["Vetovoteopen"] = "vetovoteopen";
+  return ProposalStatus2;
+})(ProposalStatus || {});
+var ProposalsSortBy = /* @__PURE__ */ ((ProposalsSortBy2) => {
+  ProposalsSortBy2["Id"] = "id";
+  return ProposalsSortBy2;
+})(ProposalsSortBy || {});
 var Role = /* @__PURE__ */ ((Role2) => {
   Role2["Admin"] = "ADMIN";
   Role2["User"] = "USER";
   return Role2;
 })(Role || {});
+var RoundStatus = /* @__PURE__ */ ((RoundStatus2) => {
+  RoundStatus2["Active"] = "ACTIVE";
+  RoundStatus2["Complete"] = "COMPLETE";
+  RoundStatus2["Executed"] = "EXECUTED";
+  RoundStatus2["Pending"] = "PENDING";
+  return RoundStatus2;
+})(RoundStatus || {});
+var SignInType = /* @__PURE__ */ ((SignInType2) => {
+  SignInType2["Evm"] = "evm";
+  SignInType2["Solana"] = "solana";
+  SignInType2["Solanaledger"] = "solanaledger";
+  return SignInType2;
+})(SignInType || {});
 var SimulationStatus = /* @__PURE__ */ ((SimulationStatus2) => {
   SimulationStatus2["Failed"] = "failed";
   SimulationStatus2["Success"] = "success";
@@ -144,23 +249,31 @@ var SortOrder = /* @__PURE__ */ ((SortOrder2) => {
   SortOrder2["Desc"] = "DESC";
   return SortOrder2;
 })(SortOrder || {});
+var StakeEventType = /* @__PURE__ */ ((StakeEventType2) => {
+  StakeEventType2["Deposit"] = "deposit";
+  StakeEventType2["Staked"] = "staked";
+  StakeEventType2["Unstaked"] = "unstaked";
+  StakeEventType2["Withdraw"] = "withdraw";
+  return StakeEventType2;
+})(StakeEventType || {});
+var StakeSortBy = /* @__PURE__ */ ((StakeSortBy2) => {
+  StakeSortBy2["DepositId"] = "depositId";
+  StakeSortBy2["Id"] = "id";
+  return StakeSortBy2;
+})(StakeSortBy || {});
 var SupportType = /* @__PURE__ */ ((SupportType2) => {
   SupportType2["Abstain"] = "ABSTAIN";
   SupportType2["Against"] = "AGAINST";
   SupportType2["For"] = "FOR";
   return SupportType2;
 })(SupportType || {});
-var TallyProposalSortField = /* @__PURE__ */ ((TallyProposalSortField2) => {
-  TallyProposalSortField2["CreatedAt"] = "CREATED_AT";
-  return TallyProposalSortField2;
-})(TallyProposalSortField || {});
-var TallyProposalStatus = /* @__PURE__ */ ((TallyProposalStatus2) => {
-  TallyProposalStatus2["Confirmed"] = "CONFIRMED";
-  TallyProposalStatus2["Draft"] = "DRAFT";
-  TallyProposalStatus2["Failed"] = "FAILED";
-  TallyProposalStatus2["Submitted"] = "SUBMITTED";
-  return TallyProposalStatus2;
-})(TallyProposalStatus || {});
+var SwapOrderStatus = /* @__PURE__ */ ((SwapOrderStatus2) => {
+  SwapOrderStatus2["Failed"] = "FAILED";
+  SwapOrderStatus2["Fulfilled"] = "FULFILLED";
+  SwapOrderStatus2["Pending"] = "PENDING";
+  SwapOrderStatus2["PendingExecution"] = "PENDING_EXECUTION";
+  return SwapOrderStatus2;
+})(SwapOrderStatus || {});
 var TimeInterval = /* @__PURE__ */ ((TimeInterval2) => {
   TimeInterval2["All"] = "ALL";
   TimeInterval2["Day"] = "DAY";
@@ -175,75 +288,118 @@ var TokenType = /* @__PURE__ */ ((TokenType2) => {
   TokenType2["Erc20"] = "ERC20";
   TokenType2["Erc20Aave"] = "ERC20AAVE";
   TokenType2["Erc721"] = "ERC721";
+  TokenType2["Solanaspoketoken"] = "SOLANASPOKETOKEN";
   return TokenType2;
 })(TokenType || {});
-var VoteSortField = /* @__PURE__ */ ((VoteSortField2) => {
-  VoteSortField2["Block"] = "BLOCK";
-  VoteSortField2["Created"] = "CREATED";
-  VoteSortField2["Weight"] = "WEIGHT";
-  return VoteSortField2;
-})(VoteSortField || {});
-var VotingPowerChangeSortField = /* @__PURE__ */ ((VotingPowerChangeSortField2) => {
-  VotingPowerChangeSortField2["Created"] = "CREATED";
-  VotingPowerChangeSortField2["NetChange"] = "NET_CHANGE";
-  VotingPowerChangeSortField2["NewBalance"] = "NEW_BALANCE";
-  VotingPowerChangeSortField2["OldBalance"] = "OLD_BALANCE";
-  return VotingPowerChangeSortField2;
-})(VotingPowerChangeSortField || {});
+var TransactionType = /* @__PURE__ */ ((TransactionType2) => {
+  TransactionType2["Delegation"] = "delegation";
+  return TransactionType2;
+})(TransactionType || {});
+var UnistakerTransactionStatus = /* @__PURE__ */ ((UnistakerTransactionStatus2) => {
+  UnistakerTransactionStatus2["Failed"] = "failed";
+  UnistakerTransactionStatus2["Indexed"] = "indexed";
+  UnistakerTransactionStatus2["Pending"] = "pending";
+  UnistakerTransactionStatus2["Timeout"] = "timeout";
+  return UnistakerTransactionStatus2;
+})(UnistakerTransactionStatus || {});
+var UnistakerTransactionType = /* @__PURE__ */ ((UnistakerTransactionType2) => {
+  UnistakerTransactionType2["Alterbeneficiary"] = "alterbeneficiary";
+  UnistakerTransactionType2["Alterdelegatee"] = "alterdelegatee";
+  UnistakerTransactionType2["Claimreward"] = "claimreward";
+  UnistakerTransactionType2["Delete"] = "delete";
+  UnistakerTransactionType2["Multicall"] = "multicall";
+  UnistakerTransactionType2["Stake"] = "stake";
+  UnistakerTransactionType2["Stakemore"] = "stakemore";
+  UnistakerTransactionType2["Withdraw"] = "withdraw";
+  return UnistakerTransactionType2;
+})(UnistakerTransactionType || {});
+var VoteType = /* @__PURE__ */ ((VoteType2) => {
+  VoteType2["Abstain"] = "abstain";
+  VoteType2["Against"] = "against";
+  VoteType2["For"] = "for";
+  VoteType2["Pendingabstain"] = "pendingabstain";
+  VoteType2["Pendingagainst"] = "pendingagainst";
+  VoteType2["Pendingfor"] = "pendingfor";
+  return VoteType2;
+})(VoteType || {});
+var VotesSortBy = /* @__PURE__ */ ((VotesSortBy2) => {
+  VotesSortBy2["Amount"] = "amount";
+  VotesSortBy2["Id"] = "id";
+  return VotesSortBy2;
+})(VotesSortBy || {});
 const GovernorsDocument = `
-    query Governors($chainIds: [ChainID!], $pagination: Pagination, $sort: GovernorSort) {
-  governors(chainIds: $chainIds, pagination: $pagination, sort: $sort) {
-    id
-    name
-    tokens {
-      stats {
-        voters
+    query Governors($input: GovernorsInput!) {
+  governors(input: $input) {
+    nodes {
+      ... on Governor {
+        id
+        name
+        proposalStats {
+          total
+          active
+        }
       }
     }
-    proposalStats {
-      total
-      active
+    pageInfo {
+      count
     }
   }
 }
     `;
 const useGovernorsQuery = (variables, options) => useQuery(
-  variables === void 0 ? ["Governors"] : ["Governors", variables],
+  ["Governors", variables],
   useGraphQLCodegen(GovernorsDocument).bind(null, variables),
   options
 );
 export {
-  AccountActivitySortField,
-  DelegateSortField,
+  AccountType,
+  AssignmentDirection,
+  BlockExplorerType,
+  CandidateSort,
+  CloudEventType,
+  ContenderFilter,
+  ContractType,
+  ContributorsSortBy,
+  DelegateChangedHistorySortBy,
   DelegateStatementSource,
-  DelegationWeightChangeSortField,
-  FeatureOrderField,
+  DelegateVotesChangedHistorySortBy,
+  DelegatesSortBy,
+  DelegationsSortBy,
+  EarningPowerTrackerEventType,
+  ElectionStatus,
+  EligibilityStatus,
+  ExecutableCallType,
   GnosisStatusChangeType,
-  GovernanceSortField,
-  GovernanceType,
-  GovernorSortField,
+  GovernorKind,
   GovernorType,
   GovernorsDocument,
-  MemberSortField,
-  MultiGovernanceSupport,
-  OrderDirection,
-  OrgUxVersion,
+  GovernorsSortBy,
+  MetaTransactionAction,
+  MetaTransactionSortField,
+  NewVoteType,
+  OrganizationMembersSortBy,
   OrganizationRole,
-  OrganizationSortField,
-  PollStatus,
+  OrganizationsSortBy,
   ProposalActionType,
-  ProposalSortField,
-  ProposalStatusType,
-  Recipe,
+  ProposalEventType,
+  ProposalParticipationType,
+  ProposalStatus,
+  ProposalsSortBy,
   Role,
+  RoundStatus,
+  SignInType,
   SimulationStatus,
   SortOrder,
+  StakeEventType,
+  StakeSortBy,
   SupportType,
-  TallyProposalSortField,
-  TallyProposalStatus,
+  SwapOrderStatus,
   TimeInterval,
   TokenType,
-  VoteSortField,
-  VotingPowerChangeSortField,
+  TransactionType,
+  UnistakerTransactionStatus,
+  UnistakerTransactionType,
+  VoteType,
+  VotesSortBy,
   useGovernorsQuery
 };

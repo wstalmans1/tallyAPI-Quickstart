@@ -1,42 +1,66 @@
 import { useEffect, useState } from "react";
 import { fetcher } from "./fetcher";
 
-export const Proposals = () => {
+export const Proposals = ({ organizationId }) => {
   const [proposals, setProposals] = useState(undefined);
   const ProposalsDocument =
-   `query Proposals($chainId: ChainID!, $pagination: Pagination, $sort: ProposalSort) {
-      proposals(chainId: $chainId, pagination: $pagination, sort: $sort) {
-        id
-        title
-        eta
-        governor {
-          name
+   `query Proposals($input: ProposalsInput!) {
+      proposals(input: $input) {
+        nodes {
+          ... on Proposal {
+            id
+            onchainId
+            status
+            metadata { 
+              title 
+              eta 
+            }
+            governor { 
+              id 
+              name 
+              chainId 
+            }
+            organization { 
+              id 
+              name 
+            }
+            voteStats {
+              type
+              votesCount
+              votersCount
+              percent
+            }
+          }
         }
-        voteStats {
-          support
-          weight
-          votes
-          percent
+        pageInfo {
+          firstCursor
+          lastCursor
+          count
         }
       }
   }
       `;
 
-  const chainId = "eip155:1";
-
   useEffect(() => {
+    // Reset proposals to undefined to show loading state
+    setProposals(undefined);
+    
     fetcher({
       query: ProposalsDocument,
       variables: {
-        chainId,
-        pagination: { limit: 8, offset: 0 },
-        sort: { field: "START_BLOCK", order: "DESC" },
+        input: {
+          filters: {
+            organizationId: organizationId,
+          },
+          page: { limit: 8 },
+          sort: { sortBy: "id", isDescending: true },
+        },
       },
     }).then((data) => {
-      const { proposals } = data ?? [];
+      const { nodes: proposals } = data?.proposals ?? { nodes: [] };
       setProposals(proposals);
     });
-  }, []);
+  }, [organizationId]);
 
   if (!proposals)
     return (
@@ -47,10 +71,14 @@ export const Proposals = () => {
 
   return (
     <div className="governorList">
-      <h2>Mainnet ETH Proposals</h2>
-      {proposals.length && (
-        <ProposalTable proposals={proposals}></ProposalTable>
-      )}
+      <h2>Organization Proposals</h2>
+              {proposals && proposals.length > 0 ? (
+          <ProposalTable proposals={proposals}></ProposalTable>
+        ) : (
+          <div className="no-data-message">
+            <p>No proposals found in this organization.</p>
+          </div>
+        )}
     </div>
   );
 };
@@ -60,19 +88,31 @@ export const ProposalTable = ({ proposals }) => {
     <table className="styledTable">
       <thead>
         <tr>
-          <th>Title</th>
-          <th>Governor</th>
-          <th>Votes For (%)</th>
+          <th style={{ width: "50%" }}>Title</th>
+          <th style={{ width: "25%" }}>Governor</th>
+          <th style={{ width: "25%" }}>Votes For (%)</th>
         </tr>
       </thead>
       <tbody>
         {proposals.map((proposal, index) => {
-          const forPercent = proposal.voteStats[0].percent.toFixed();
+          // Find the "for" vote type
+          const forVote = proposal.voteStats?.find(vote => vote.type === "for");
+          const forPercent = forVote?.percent?.toFixed() || "N/A";
+          const title = proposal.metadata?.title || "No title";
 
           return (
             <tr key={`proposal-row-${index}`}>
-              <td>{proposal.title}</td>
-              <td>{proposal.governor.name}</td>
+              <td style={{ 
+                maxWidth: "0", 
+                overflow: "hidden", 
+                textOverflow: "ellipsis", 
+                whiteSpace: "nowrap",
+                paddingRight: "10px",
+                cursor: "help"
+              }} title={title}>
+                {title}
+              </td>
+              <td>{proposal.governor?.name || "Unknown"}</td>
               <td>{forPercent}</td>
             </tr>
           );

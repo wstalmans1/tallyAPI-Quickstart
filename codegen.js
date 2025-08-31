@@ -5,7 +5,7 @@ const config = {
       "https://api.tally.xyz/query": {
         headers: {
           "Api-Key":
-            "a0a4cd00bb6953720c9c201c010cdd36a563e65c97e926a36a8acdfcd1d1eeb7",
+            "058f57c1d26e00a3d7f5bc1a0f1b3fd4ad7eb66f39542eb3eff08e33b7cd5550",
         },
       },
     },

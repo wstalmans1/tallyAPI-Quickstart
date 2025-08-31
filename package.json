@@ -9,7 +9,8 @@
     "dev": "run-p dev:*",
     "dev:types": "npm run gen:types -- --watch",
     "dev:hooks": "npm run gen:hooks -- --watch",
-    "dev:vite": "vite"
+    "dev:vite": "vite",
+    "build": "vite build"
   },
   "dependencies": {
     "@tanstack/react-query": "^4.24.4",
