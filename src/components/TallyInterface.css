@@ -1,0 +1,116 @@
+.tally-interface {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.org-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.org-info h1 {
+  margin: 0 0 10px 0;
+  font-size: 2rem;
+  color: #1a202c;
+}
+
+.org-meta {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+}
+
+.chain-badge {
+  padding: 4px 12px;
+  background: #e2e8f0;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: #4a5568;
+}
+
+.governor-address {
+  font-family: monospace;
+  font-size: 0.875rem;
+  color: #718096;
+}
+
+.org-stats {
+  display: flex;
+  gap: 20px;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-value {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #2d3748;
+}
+
+.stat-label {
+  font-size: 0.875rem;
+  color: #718096;
+}
+
+.create-proposal-btn {
+  padding: 12px 24px;
+  background: #3182ce;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.create-proposal-btn:hover {
+  background: #2c5aa0;
+}
+
+.tally-content {
+  min-height: 400px;
+}
+
+.tally-loading,
+.tally-error,
+.tally-no-governors {
+  text-align: center;
+  padding: 60px 20px;
+}
+
+.loading-spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #e2e8f0;
+  border-top: 4px solid #3182ce;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 20px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.tally-error button,
+.tally-no-governors button {
+  padding: 10px 20px;
+  background: #3182ce;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-top: 15px;
+}

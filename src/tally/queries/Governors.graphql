@@ -1,0 +1,25 @@
+query Governors($input: GovernorsInput!) {
+  governors(input: $input) {
+    nodes {
+      ... on Governor {
+        id
+        name
+        chainId
+        address
+        proposalStats { 
+          total 
+          active 
+        }
+        organization { 
+          id 
+          name 
+        }
+      }
+    }
+    pageInfo { 
+      count 
+      firstCursor 
+      lastCursor 
+    }
+  }
+}

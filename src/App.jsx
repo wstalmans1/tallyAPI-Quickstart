@@ -6,17 +6,65 @@ import { Governors } from "./CodegenQuery/Governors";
 import { Proposals } from "./RawQuery/Proposals";
 import { PolygonProposals} from "./ReactQuery/PolygonProposals"
 import { InteractiveDAO } from "./InteractiveDAO";
+import { TallyInterface } from "./components/TallyInterface";
 
 function App() {
   const queryClient = new QueryClient();
-  const [selectedOrgId, setSelectedOrgId] = useState("2206072050123015276");
+  const [selectedOrgId, setSelectedOrgId] = useState("2206072049812637268"); // Default to Sepolia DAO
+  const [useNewInterface, setUseNewInterface] = useState(false);
 
   return (
     <QueryClientProvider client={queryClient}>
       <div className="App">
         <Header />
         
-        <div style={{ margin: "20px", padding: "20px", border: "1px solid #ccc", borderRadius: "8px" }}>
+        {/* Interface Toggle */}
+        <div style={{ 
+          margin: "20px", 
+          padding: "15px", 
+          border: "1px solid #ddd", 
+          borderRadius: "8px",
+          backgroundColor: "#f8f9fa",
+          textAlign: "center"
+        }}>
+          <h3>Choose Interface</h3>
+          <div style={{ display: "flex", gap: "10px", justifyContent: "center", marginTop: "10px" }}>
+            <button
+              onClick={() => setUseNewInterface(false)}
+              style={{
+                padding: "10px 20px",
+                border: !useNewInterface ? "2px solid #007bff" : "1px solid #ccc",
+                borderRadius: "6px",
+                background: !useNewInterface ? "#007bff" : "white",
+                color: !useNewInterface ? "white" : "black",
+                cursor: "pointer",
+                fontWeight: "bold"
+              }}
+            >
+              Legacy Interface
+            </button>
+            <button
+              onClick={() => setUseNewInterface(true)}
+              style={{
+                padding: "10px 20px",
+                border: useNewInterface ? "2px solid #007bff" : "1px solid #ccc",
+                borderRadius: "6px",
+                background: useNewInterface ? "#007bff" : "white",
+                color: useNewInterface ? "white" : "black",
+                cursor: "pointer",
+                fontWeight: "bold"
+              }}
+            >
+              🚀 New Tally Interface
+            </button>
+          </div>
+        </div>
+        
+        {useNewInterface ? (
+          <TallyInterface />
+        ) : (
+          <>
+            <div style={{ margin: "20px", padding: "20px", border: "1px solid #ccc", borderRadius: "8px" }}>
           <h3>Organization Selector</h3>
           <p>Current Organization ID: <strong>{selectedOrgId}</strong></p>
           <p>This is a test environment. To see real DAO data, you need to:</p>
@@ -76,10 +124,12 @@ function App() {
           <strong>Debug:</strong> selectedOrgId = "{selectedOrgId}"
         </div>
         
-        <Governors organizationId={selectedOrgId} />
-        <Proposals organizationId={selectedOrgId} />
-        <PolygonProposals organizationId={selectedOrgId} />
-        <InteractiveDAO organizationId={selectedOrgId} />
+            <Governors organizationId={selectedOrgId} />
+            <Proposals organizationId={selectedOrgId} />
+            <PolygonProposals organizationId={selectedOrgId} />
+            <InteractiveDAO organizationId={selectedOrgId} />
+          </>
+        )}
       </div>
     </QueryClientProvider>
   );

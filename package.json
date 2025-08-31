@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "scripts": {
     "gen": "run-p gen:*",
-    "gen:types": "pnpm exec graphql-codegen --config codegen.js",
+    "gen:types": "graphql-codegen --config codegen.ts",
     "gen:hooks": "esbuild autogen/schema.ts --format=esm --outfile=src/CodegenQuery/hooks.js",
     "dev": "run-p dev:*",
     "dev:types": "pnpm run gen:types -- --watch",
@@ -13,13 +13,18 @@
     "build": "vite build"
   },
   "dependencies": {
-    "@tanstack/react-query": "^4.24.4",
+    "@graphql-typed-document-node/core": "^3.2.0",
+    "@tanstack/react-query": "^5.85.6",
+    "graphql": "^16.11.0",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "viem": "^2.36.0",
+    "wagmi": "^2.16.9",
+    "zustand": "^5.0.8"
   },
   "devDependencies": {
-    "npm-run-all": "^4.1.5",
     "@graphql-codegen/cli": "^2.16.5",
+    "@graphql-codegen/typescript": "^4.1.6",
     "@graphql-codegen/typescript-operations": "^2.5.13",
     "@graphql-codegen/typescript-react-query": "^4.1.0",
     "@types/react": "^18.0.26",
@@ -28,6 +33,7 @@
     "esbuild": "^0.17.5",
     "eslint": "^8.33.0",
     "eslint-plugin-react": "^7.32.2",
+    "npm-run-all": "^4.1.5",
     "vite": "^4.0.0"
   }
 }

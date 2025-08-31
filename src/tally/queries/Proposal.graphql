@@ -1,0 +1,31 @@
+query Proposal($id: ID!) {
+  proposal(id: $id) {
+    ... on Proposal {
+      id
+      onchainId
+      status
+      metadata { 
+        title 
+        body 
+      }
+      start { 
+        timestamp 
+      }
+      end { 
+        timestamp 
+      }
+      votes { 
+        for 
+        against 
+        abstain 
+        quorum 
+        total 
+      }
+      governor { 
+        id 
+        name 
+        chainId 
+      }
+    }
+  }
+}

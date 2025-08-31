@@ -1,0 +1,33 @@
+query Proposals($input: ProposalsInput!) {
+  proposals(input: $input) {
+    nodes {
+      ... on Proposal {
+        id
+        onchainId
+        status
+        metadata { 
+          title 
+        }
+        start { 
+          timestamp 
+        }
+        end { 
+          timestamp 
+        }
+        votes { 
+          for 
+          against 
+          abstain 
+          quorum 
+        }
+        governor { 
+          id 
+        }
+      }
+    }
+    pageInfo { 
+      firstCursor 
+      lastCursor 
+    }
+  }
+}
