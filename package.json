@@ -4,11 +4,11 @@
   "version": "0.0.0",
   "scripts": {
     "gen": "run-p gen:*",
-    "gen:types": "npx graphql-codegen --config codegen.js",
+    "gen:types": "pnpm exec graphql-codegen --config codegen.js",
     "gen:hooks": "esbuild autogen/schema.ts --format=esm --outfile=src/CodegenQuery/hooks.js",
     "dev": "run-p dev:*",
-    "dev:types": "npm run gen:types -- --watch",
-    "dev:hooks": "npm run gen:hooks -- --watch",
+    "dev:types": "pnpm run gen:types -- --watch",
+    "dev:hooks": "pnpm run gen:hooks -- --watch",
     "dev:vite": "vite",
     "build": "vite build"
   },
