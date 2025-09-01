@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useOrg, initializeOrg } from '../state/org'
-import { useGovernorsByOrg } from '../tally/useTally'
+import { useGovernorsByOrg } from '../tally/hooks'
 import { useGovernorEvents } from '../realtime/useGovernorEvents'
 import { useGovernorWrites } from '../governance/useGovernorWrites'
 import { ProposalsList } from './ProposalsList'

@@ -1,0 +1,17 @@
+schema:
+  - https://api.tally.xyz/query:
+      headers:
+        Api-Key: ${TALLY_API_KEY}
+documents: "src/**/*.graphql"
+generates:
+  src/tally-types.ts:
+    plugins:
+      - typescript
+      - typescript-operations
+  src/tally-hooks.ts:
+    plugins:
+      - typescript-react-query
+    config:
+      fetcher: "graphql-request"
+      exposeQueryKeys: true
+      exposeFetcher: true

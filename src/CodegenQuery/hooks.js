@@ -346,11 +346,11 @@ const GovernorsDocument = `
   }
 }
     `;
-const useGovernorsQuery = (variables, options) => useQuery(
-  ["Governors", variables],
-  useGraphQLCodegen(GovernorsDocument).bind(null, variables),
-  options
-);
+const useGovernorsQuery = (variables, options) => useQuery({
+  queryKey: ["Governors", variables],
+  queryFn: useGraphQLCodegen(GovernorsDocument).bind(null, variables),
+  ...options
+});
 export {
   AccountType,
   AssignmentDirection,

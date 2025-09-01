@@ -1,66 +1,140 @@
-import { useWriteContract } from 'wagmi'
-import { parseAbi, type Hex } from 'viem'
+import { useEffect } from 'react'
+import { useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
+import { useInvalidateTallyQueries } from '../tally/hooks'
 
-const governorAbi = parseAbi([
-  'function propose(address[] targets,uint256[] values,bytes[] calldatas,string description) returns (uint256)',
-  'function castVote(uint256 proposalId,uint8 support) returns (uint256)',
-  'function castVoteWithReason(uint256 proposalId,uint8 support,string reason) returns (uint256)',
-  'function queue(address[] targets,uint256[] values,bytes[] calldatas,bytes32 descriptionHash)',
-  'function execute(address[] targets,uint256[] values,bytes[] calldatas,bytes32 descriptionHash) payable'
-])
+// OpenZeppelin Governor ABI for write functions
+const GOVERNOR_ABI = [
+  {
+    type: 'function',
+    name: 'propose',
+    inputs: [
+      { name: 'targets', type: 'address[]' },
+      { name: 'values', type: 'uint256[]' },
+      { name: 'calldatas', type: 'bytes[]' },
+      { name: 'description', type: 'string' }
+    ],
+    outputs: [{ name: 'proposalId', type: 'uint256' }],
+    stateMutability: 'nonpayable'
+  },
+  {
+    type: 'function',
+    name: 'castVote',
+    inputs: [
+      { name: 'proposalId', type: 'uint256' },
+      { name: 'support', type: 'uint8' }
+    ],
+    outputs: [{ name: 'weight', type: 'uint256' }],
+    stateMutability: 'nonpayable'
+  },
+  {
+    type: 'function',
+    name: 'castVoteWithReason',
+    inputs: [
+      { name: 'proposalId', type: 'uint256' },
+      { name: 'support', type: 'uint8' },
+      { name: 'reason', type: 'string' }
+    ],
+    outputs: [{ name: 'weight', type: 'uint256' }],
+    stateMutability: 'nonpayable'
+  },
+  {
+    type: 'function',
+    name: 'execute',
+    inputs: [
+      { name: 'targets', type: 'address[]' },
+      { name: 'values', type: 'uint256[]' },
+      { name: 'calldatas', type: 'bytes[]' },
+      { name: 'descriptionHash', type: 'bytes32' }
+    ],
+    outputs: [{ name: 'proposalId', type: 'uint256' }],
+    stateMutability: 'payable'
+  },
+  {
+    type: 'function',
+    name: 'queue',
+    inputs: [
+      { name: 'targets', type: 'address[]' },
+      { name: 'values', type: 'uint256[]' },
+      { name: 'calldatas', type: 'bytes[]' },
+      { name: 'descriptionHash', type: 'bytes32' }
+    ],
+    outputs: [{ name: 'proposalId', type: 'uint256' }],
+    stateMutability: 'nonpayable'
+  }
+] as const
 
-export function useGovernorWrites(governorAddress: `0x${string}`) {
-  const { writeContract, data, isPending, error } = useWriteContract()
+export const useGovernorWrites = (governorAddress: string) => {
+  const { writeContract, data: hash, error, isPending } = useWriteContract()
+  const { invalidateProposals, invalidateProposal } = useInvalidateTallyQueries()
+  
+  const { isLoading: isConfirming, isSuccess: isConfirmed } = useWaitForTransactionReceipt({
+    hash,
+  })
+
+  // Invalidate queries after successful transaction
+  useEffect(() => {
+    if (isConfirmed && hash) {
+      // Get chain ID from the transaction receipt
+      // For now, we'll invalidate all queries as a fallback
+      invalidateProposals('', governorAddress)
+    }
+  }, [isConfirmed, hash, governorAddress, invalidateProposals])
+
+  const propose = (targets: string[], values: bigint[], calldatas: string[], description: string) => {
+    writeContract({
+      address: governorAddress as `0x${string}`,
+      abi: GOVERNOR_ABI,
+      functionName: 'propose',
+      args: [targets, values, calldatas, description],
+    })
+  }
+
+  const castVote = (proposalId: bigint, support: number) => {
+    writeContract({
+      address: governorAddress as `0x${string}`,
+      abi: GOVERNOR_ABI,
+      functionName: 'castVote',
+      args: [proposalId, support],
+    })
+  }
+
+  const castVoteWithReason = (proposalId: bigint, support: number, reason: string) => {
+    writeContract({
+      address: governorAddress as `0x${string}`,
+      abi: GOVERNOR_ABI,
+      functionName: 'castVoteWithReason',
+      args: [proposalId, support, reason],
+    })
+  }
+
+  const execute = (targets: string[], values: bigint[], calldatas: string[], descriptionHash: string) => {
+    writeContract({
+      address: governorAddress as `0x${string}`,
+      abi: GOVERNOR_ABI,
+      functionName: 'execute',
+      args: [targets, values, calldatas, descriptionHash],
+    })
+  }
+
+  const queue = (targets: string[], values: bigint[], calldatas: string[], descriptionHash: string) => {
+    writeContract({
+      address: governorAddress as `0x${string}`,
+      abi: GOVERNOR_ABI,
+      functionName: 'queue',
+      args: [targets, values, calldatas, descriptionHash],
+    })
+  }
 
   return {
-    propose: (targets: `0x${string}`[], values: bigint[], calldatas: Hex[], description: string) =>
-      writeContract({ 
-        address: governorAddress, 
-        abi: governorAbi, 
-        functionName: 'propose', 
-        args: [targets, values, calldatas, description] 
-      }),
-    
-    castVote: (proposalId: bigint, support: 0|1|2) =>
-      writeContract({ 
-        address: governorAddress, 
-        abi: governorAbi, 
-        functionName: 'castVote', 
-        args: [proposalId, support] 
-      }),
-    
-    castVoteWithReason: (proposalId: bigint, support: 0|1|2, reason: string) =>
-      writeContract({ 
-        address: governorAddress, 
-        abi: governorAbi, 
-        functionName: 'castVoteWithReason', 
-        args: [proposalId, support, reason] 
-      }),
-    
-    queue: (targets: `0x${string}`[], values: bigint[], calldatas: Hex[], descriptionHash: Hex) =>
-      writeContract({ 
-        address: governorAddress, 
-        abi: governorAbi, 
-        functionName: 'queue', 
-        args: [targets, values, calldatas, descriptionHash] 
-      }),
-    
-    execute: (targets: `0x${string}`[], values: bigint[], calldatas: Hex[], descriptionHash: Hex) =>
-      writeContract({ 
-        address: governorAddress, 
-        abi: governorAbi, 
-        functionName: 'execute', 
-        args: [targets, values, calldatas, descriptionHash] 
-      }),
-    
-    data, 
-    isPending, 
-    error
+    propose,
+    castVote,
+    castVoteWithReason,
+    execute,
+    queue,
+    hash,
+    error,
+    isPending,
+    isConfirming,
+    isConfirmed,
   }
-}
-
-// Helper function to compute descriptionHash for queue/execute
-export const descriptionHash = (description: string): Hex => {
-  const { keccak256, toBytes } = require('viem')
-  return keccak256(toBytes(description))
 }

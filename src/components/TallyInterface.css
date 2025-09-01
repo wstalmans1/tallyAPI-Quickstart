@@ -1,99 +1,22 @@
+/* Tally Interface Styles */
 .tally-interface {
   max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
 }
 
-.org-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 30px;
-  padding: 20px;
-  background: white;
-  border-radius: 12px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-}
-
-.org-info h1 {
-  margin: 0 0 10px 0;
-  font-size: 2rem;
-  color: #1a202c;
-}
-
-.org-meta {
-  display: flex;
-  gap: 15px;
-  align-items: center;
-}
-
-.chain-badge {
-  padding: 4px 12px;
-  background: #e2e8f0;
-  border-radius: 20px;
-  font-size: 0.875rem;
-  font-weight: 500;
-  color: #4a5568;
-}
-
-.governor-address {
-  font-family: monospace;
-  font-size: 0.875rem;
-  color: #718096;
-}
-
-.org-stats {
-  display: flex;
-  gap: 20px;
-}
-
-.stat {
-  text-align: center;
-}
-
-.stat-value {
-  display: block;
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #2d3748;
-}
-
-.stat-label {
-  font-size: 0.875rem;
-  color: #718096;
-}
-
-.create-proposal-btn {
-  padding: 12px 24px;
-  background: #3182ce;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
-  transition: background-color 0.2s;
-}
-
-.create-proposal-btn:hover {
-  background: #2c5aa0;
-}
-
-.tally-content {
-  min-height: 400px;
-}
-
 .tally-loading,
 .tally-error,
 .tally-no-governors {
   text-align: center;
-  padding: 60px 20px;
+  padding: 40px 20px;
 }
 
 .loading-spinner {
   width: 40px;
   height: 40px;
-  border: 4px solid #e2e8f0;
-  border-top: 4px solid #3182ce;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #007bff;
   border-radius: 50%;
   animation: spin 1s linear infinite;
   margin: 0 auto 20px;
@@ -104,13 +27,230 @@
   100% { transform: rotate(360deg); }
 }
 
-.tally-error button,
-.tally-no-governors button {
-  padding: 10px 20px;
-  background: #3182ce;
+.org-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 30px;
+  padding: 20px;
+  background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
   color: white;
-  border: none;
-  border-radius: 6px;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.org-info h1 {
+  margin: 0 0 10px 0;
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.org-meta {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.chain-badge {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.governor-address {
+  font-family: monospace;
+  font-size: 14px;
+  opacity: 0.9;
+}
+
+.org-stats {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.stat {
+  text-align: center;
+}
+
+.stat-value {
+  display: block;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+.stat-label {
+  font-size: 14px;
+  opacity: 0.9;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.create-proposal-btn {
+  background: rgba(255, 255, 255, 0.2);
+  border: 2px solid white;
+  color: white;
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
   cursor: pointer;
-  margin-top: 15px;
+  transition: all 0.2s ease;
+  font-size: 16px;
+}
+
+.create-proposal-btn:hover {
+  background: white;
+  color: #007bff;
+  transform: translateY(-2px);
+}
+
+.tally-content {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+}
+
+/* Proposals List Styles */
+.proposals-list h3 {
+  margin: 0 0 20px 0;
+  padding: 20px 20px 0;
+  color: #333;
+  font-size: 1.5rem;
+}
+
+.proposals-grid {
+  padding: 0 20px 20px;
+}
+
+.proposal-card {
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 15px;
+  background: white;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.proposal-card:hover {
+  border-color: #007bff;
+  box-shadow: 0 4px 12px rgba(0, 123, 255, 0.15);
+  transform: translateY(-2px);
+}
+
+.proposal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 10px;
+}
+
+.proposal-header h4 {
+  margin: 0;
+  color: #007bff;
+  font-size: 1.1rem;
+  line-height: 1.3;
+}
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.status-active {
+  background: #28a745;
+  color: white;
+}
+
+.status-succeeded {
+  background: #007bff;
+  color: white;
+}
+
+.status-defeated {
+  background: #dc3545;
+  color: white;
+}
+
+.status-executed {
+  background: #6c757d;
+  color: white;
+}
+
+.status-pending {
+  background: #ffc107;
+  color: #212529;
+}
+
+.proposal-stats {
+  display: flex;
+  gap: 20px;
+  font-size: 12px;
+  color: #666;
+  margin-top: 10px;
+}
+
+.proposal-meta {
+  margin-top: 10px;
+  font-size: 12px;
+  color: #999;
+  display: flex;
+  gap: 20px;
+}
+
+/* Loading and Error States */
+.proposals-loading,
+.proposals-error,
+.proposals-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+}
+
+.proposals-error {
+  color: #dc3545;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .org-header {
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+  }
+  
+  .org-stats {
+    justify-content: center;
+  }
+  
+  .org-meta {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .proposal-header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+  
+  .proposal-stats {
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .proposal-meta {
+    flex-direction: column;
+    gap: 5px;
+  }
 }
