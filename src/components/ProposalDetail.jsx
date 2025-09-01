@@ -119,7 +119,18 @@ export const ProposalDetail = ({ proposalId, onBack, governorAddress }) => {
                 <div>
                   <strong>Governor:</strong>
                   <div style={{ fontFamily: 'monospace', fontSize: '14px', wordBreak: 'break-all' }}>
-                    {proposalData.governor?.contracts?.governor?.address || 'Unknown'}
+                    {proposalData.governor?.contracts?.governor?.address ? (
+                      <a 
+                        href={`https://sepolia.etherscan.io/address/${proposalData.governor.contracts.governor.address}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ color: '#007bff', textDecoration: 'none' }}
+                        onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
+                        onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
+                      >
+                        {proposalData.governor.contracts.governor.address}
+                      </a>
+                    ) : 'Unknown'}
                   </div>
                 </div>
                 <div>
@@ -141,6 +152,31 @@ export const ProposalDetail = ({ proposalId, onBack, governorAddress }) => {
                     {proposalData.status}
                   </div>
                 </div>
+                {proposalData.governor?.token && (
+                  <div>
+                    <strong>Token:</strong>
+                    <div style={{ fontSize: '14px' }}>
+                      {proposalData.governor.token.symbol} ({proposalData.governor.token.name})
+                    </div>
+                    <div style={{ fontFamily: 'monospace', fontSize: '12px', color: '#666', wordBreak: 'break-all' }}>
+                      {proposalData.governor.token.id.includes('/erc721:') ? (
+                        <a 
+                          href={`https://sepolia.etherscan.io/token/${proposalData.governor.token.id.split('/erc721:')[1]}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          style={{ color: '#007bff', textDecoration: 'none' }}
+                          onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
+                          onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
+                        >
+                          {proposalData.governor.token.id}
+                        </a>
+                      ) : (
+                        proposalData.governor.token.id
+                      )}
+                    </div>
+                  </div>
+                )}
+
               </div>
             </div>
           </div>
@@ -303,13 +339,47 @@ export const ProposalDetail = ({ proposalId, onBack, governorAddress }) => {
               <div>
                 <strong>Governor:</strong>
                 <div style={{ fontFamily: 'monospace', wordBreak: 'break-all' }}>
-                  {proposalData.governor?.contracts?.governor?.address || 'Unknown'}
+                  {proposalData.governor?.contracts?.governor?.address ? (
+                    <a 
+                      href={`https://sepolia.etherscan.io/address/${proposalData.governor.contracts.governor.address}`}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      style={{ color: '#007bff', textDecoration: 'none' }}
+                      onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
+                      onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
+                    >
+                      {proposalData.governor.contracts.governor.address}
+                    </a>
+                  ) : 'Unknown'}
                 </div>
               </div>
               <div>
                 <strong>Organization:</strong>
                 <div>{proposalData.organization?.name || 'Unknown'}</div>
               </div>
+              {proposalData.governor?.token && (
+                <div>
+                  <strong>Token:</strong>
+                  <div>{proposalData.governor.token.symbol} ({proposalData.governor.token.name})</div>
+                  <div style={{ fontFamily: 'monospace', fontSize: '12px', color: '#666', wordBreak: 'break-all' }}>
+                    {proposalData.governor.token.id.includes('/erc721:') ? (
+                      <a 
+                        href={`https://sepolia.etherscan.io/token/${proposalData.governor.token.id.split('/erc721:')[1]}`}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ color: '#007bff', textDecoration: 'none' }}
+                        onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
+                        onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
+                      >
+                        {proposalData.governor.token.id}
+                      </a>
+                    ) : (
+                      proposalData.governor.token.id
+                    )}
+                  </div>
+                </div>
+              )}
+
               {proposalData.createdAt && (
                 <div>
                   <strong>Created:</strong>

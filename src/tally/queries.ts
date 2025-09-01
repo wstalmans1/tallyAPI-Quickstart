@@ -113,6 +113,12 @@ export const GET_PROPOSAL_DETAIL = gql`
         id
         name
         chainId
+        token {
+          id
+          name
+          symbol
+          decimals
+        }
         contracts {
           governor {
             address
