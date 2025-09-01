@@ -91,6 +91,13 @@
   letter-spacing: 0.5px;
 }
 
+.wallet-section {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-end;
+}
+
 .create-proposal-btn {
   background: rgba(255, 255, 255, 0.2);
   border: 2px solid white;

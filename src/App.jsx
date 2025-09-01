@@ -1,5 +1,6 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { WagmiProvider } from 'wagmi'
+import { RainbowKitProvider } from '@rainbow-me/rainbowkit'
 import { useState } from "react";
 
 import "./App.css";
@@ -23,9 +24,10 @@ function App() {
   const [selectedOrgId, setSelectedOrgId] = useState("2206072049812637268");
   const [useNewInterface, setUseNewInterface] = useState(false);
 
-  return (
-    <WagmiProvider config={config}>
-      <QueryClientProvider client={queryClient}>
+               return (
+               <QueryClientProvider client={queryClient}>
+                 <WagmiProvider config={config}>
+                   <RainbowKitProvider>
         <div className="App" style={{ 
           backgroundColor: "white", 
           color: "black", 
@@ -144,10 +146,11 @@ function App() {
             <InteractiveDAO organizationId={selectedOrgId} />
           </>
         )}
-        </div>
-      </QueryClientProvider>
-    </WagmiProvider>
-  );
+                           </div>
+                   </RainbowKitProvider>
+                 </WagmiProvider>
+               </QueryClientProvider>
+             );
 }
 
 export default App;

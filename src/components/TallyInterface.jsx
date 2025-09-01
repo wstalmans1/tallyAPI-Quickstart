@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from 'react'
+import { ConnectButton } from '@rainbow-me/rainbowkit'
+import { useAccount } from 'wagmi'
 import { useOrg, initializeOrg } from '../state/org'
 import { useGovernorsByOrg } from '../tally/hooks'
 import { useGovernorEvents } from '../realtime/useGovernorEvents'
@@ -10,6 +12,7 @@ import './TallyInterface.css'
 
 export const TallyInterface = () => {
   const { organizationId, governorAddress, governorId } = useOrg()
+  const { address, isConnected } = useAccount()
   const [selectedProposalId, setSelectedProposalId] = useState(null)
   const [showCreateModal, setShowCreateModal] = useState(false)
   
@@ -91,12 +94,17 @@ export const TallyInterface = () => {
           </div>
         </div>
         
-        <button 
-          className="create-proposal-btn"
-          onClick={() => setShowCreateModal(true)}
-        >
-          Create Proposal
-        </button>
+        <div className="wallet-section">
+          <ConnectButton />
+          {isConnected && (
+            <button 
+              className="create-proposal-btn"
+              onClick={() => setShowCreateModal(true)}
+            >
+              Create Proposal
+            </button>
+          )}
+        </div>
       </div>
       
       {/* Main Content */}
