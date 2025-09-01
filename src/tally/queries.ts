@@ -99,41 +99,42 @@ export const GET_PROPOSALS_BY_ORG = gql`
 `
 
 export const GET_PROPOSAL_DETAIL = gql`
-  query GetProposalDetail($proposalId: String!) {
-    proposal(id: $proposalId) {
+  query GetProposalDetail($input: ProposalInput!) {
+    proposal(input: $input) {
       id
-      title
-      description
+      onchainId
       status
-      createdAt
-      startBlock
-      endBlock
-      executionETA
-      forVotes
-      againstVotes
-      abstainVotes
-      quorum
-      proposer
-      targets
-      values
-      calldatas
+      metadata {
+        title
+        description
+        eta
+      }
       governor {
         id
-        address
+        name
         chainId
+        contracts {
+          governor {
+            address
+            type
+          }
+        }
         organization {
           id
           name
         }
       }
-      votes {
+      organization {
         id
-        voter
-        support
-        weight
-        reason
-        createdAt
+        name
       }
+      voteStats {
+        type
+        votesCount
+        votersCount
+        percent
+      }
+      createdAt
     }
   }
 `

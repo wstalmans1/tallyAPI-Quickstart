@@ -94,10 +94,27 @@ export const useProposalsByOrg = (organizationId: string) => {
 export const useProposalDetail = (proposalId: string, chainId: string) => {
   return useQuery({
     queryKey: tallyKeys.proposal(chainId, proposalId),
-    queryFn: () => tallyClient.request(GET_PROPOSAL_DETAIL, { proposalId }),
+    queryFn: async () => {
+      console.log('Fetching proposal detail for ID:', proposalId)
+      
+      const input = {
+        id: proposalId
+      }
+      
+      console.log('Proposal detail query input:', input)
+      
+      const result = await tallyClient.request(GET_PROPOSAL_DETAIL, { input })
+      console.log('Proposal detail API response:', result)
+      return result
+    },
     enabled: !!proposalId && !!chainId,
     staleTime: 1 * 60 * 1000, // 1 minute
-    select: (data: any) => data.proposal
+    select: (data: any) => {
+      console.log('Processing proposal detail data:', data)
+      const proposal = data.proposal
+      console.log('Extracted proposal:', proposal)
+      return proposal
+    }
   })
 }
 
