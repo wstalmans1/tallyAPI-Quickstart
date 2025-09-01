@@ -8,6 +8,7 @@ import { useGovernorWrites } from '../governance/useGovernorWrites'
 import { ProposalsList } from './ProposalsList'
 import { CreateProposalModal } from './CreateProposalModal'
 import { ProposalDetail } from './ProposalDetail'
+import { getBlockExplorerUrl, getChainName } from '../utils/blockExplorer'
 import './TallyInterface.css'
 
 export const TallyInterface = () => {
@@ -73,12 +74,26 @@ export const TallyInterface = () => {
           <h1>{governor.organization?.name || 'DAO Organization'}</h1>
           <div className="org-meta">
             <span className="chain-badge">
-              {governor.chainId === 'eip155:137' ? 'Polygon' : 
-               governor.chainId === 'eip155:11155111' ? 'Sepolia' : 
-               governor.chainId === 'eip155:1' ? 'Ethereum' : governor.chainId}
+              {getChainName(governor.chainId)}
             </span>
             <span className="governor-address">
-              Governor: {governor.address ? `${governor.address.slice(0, 6)}...${governor.address.slice(-4)}` : 'N/A'}
+              Governor: {governor.address ? (
+                <a 
+                  href={getBlockExplorerUrl(governor.chainId, governor.address, 'address')}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  style={{ 
+                    color: '#ffffff', 
+                    textDecoration: 'none',
+                    fontFamily: 'monospace',
+                    fontWeight: 'bold'
+                  }}
+                  onMouseEnter={(e) => e.target.style.textDecoration = 'underline'}
+                  onMouseLeave={(e) => e.target.style.textDecoration = 'none'}
+                >
+                  {`${governor.address.slice(0, 6)}...${governor.address.slice(-4)}`}
+                </a>
+              ) : 'N/A'}
             </span>
           </div>
         </div>

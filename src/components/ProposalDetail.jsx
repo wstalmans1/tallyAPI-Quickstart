@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useProposalDetail } from '../tally/hooks'
 import { useOrg } from '../state/org'
 import { useGovernorWrites } from '../governance/useGovernorWrites'
+import { getBlockExplorerUrl } from '../utils/blockExplorer'
 
 export const ProposalDetail = ({ proposalId, onBack, governorAddress }) => {
   const { chainId } = useOrg()
@@ -121,7 +122,7 @@ export const ProposalDetail = ({ proposalId, onBack, governorAddress }) => {
                   <div style={{ fontFamily: 'monospace', fontSize: '14px', wordBreak: 'break-all' }}>
                     {proposalData.governor?.contracts?.governor?.address ? (
                       <a 
-                        href={`https://sepolia.etherscan.io/address/${proposalData.governor.contracts.governor.address}`}
+                        href={getBlockExplorerUrl(proposalData.governor.chainId, proposalData.governor.contracts.governor.address, 'address')}
                         target="_blank"
                         rel="noopener noreferrer"
                         style={{ color: '#007bff', textDecoration: 'none' }}
@@ -161,7 +162,7 @@ export const ProposalDetail = ({ proposalId, onBack, governorAddress }) => {
                     <div style={{ fontFamily: 'monospace', fontSize: '12px', color: '#666', wordBreak: 'break-all' }}>
                       {proposalData.governor.token.id.includes('/erc721:') ? (
                         <a 
-                          href={`https://sepolia.etherscan.io/token/${proposalData.governor.token.id.split('/erc721:')[1]}`}
+                          href={getBlockExplorerUrl(proposalData.governor.chainId, proposalData.governor.token.id.split('/erc721:')[1], 'token')}
                           target="_blank"
                           rel="noopener noreferrer"
                           style={{ color: '#007bff', textDecoration: 'none' }}
@@ -341,7 +342,7 @@ export const ProposalDetail = ({ proposalId, onBack, governorAddress }) => {
                 <div style={{ fontFamily: 'monospace', wordBreak: 'break-all' }}>
                   {proposalData.governor?.contracts?.governor?.address ? (
                     <a 
-                      href={`https://sepolia.etherscan.io/address/${proposalData.governor.contracts.governor.address}`}
+                      href={getBlockExplorerUrl(proposalData.governor.chainId, proposalData.governor.contracts.governor.address, 'address')}
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{ color: '#007bff', textDecoration: 'none' }}
@@ -364,7 +365,7 @@ export const ProposalDetail = ({ proposalId, onBack, governorAddress }) => {
                   <div style={{ fontFamily: 'monospace', fontSize: '12px', color: '#666', wordBreak: 'break-all' }}>
                     {proposalData.governor.token.id.includes('/erc721:') ? (
                       <a 
-                        href={`https://sepolia.etherscan.io/token/${proposalData.governor.token.id.split('/erc721:')[1]}`}
+                        href={getBlockExplorerUrl(proposalData.governor.chainId, proposalData.governor.token.id.split('/erc721:')[1], 'token')}
                         target="_blank"
                         rel="noopener noreferrer"
                         style={{ color: '#007bff', textDecoration: 'none' }}
